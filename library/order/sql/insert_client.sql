@@ -1,0 +1,1 @@
+INSERT INTO `client`(surname,name) VALUES(%(surname)s, %(name)s)

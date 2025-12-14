@@ -1,0 +1,1 @@
+SELECT Cl_id FROM client WHERE surname = (%s) AND name = (%s)

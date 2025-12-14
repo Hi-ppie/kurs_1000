@@ -1,0 +1,1 @@
+SELECT book_id,book_author,book_name FROM book WHERE book_genre = (%s)

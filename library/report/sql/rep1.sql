@@ -1,0 +1,1 @@
+SELECT book_id,book_name,book_author, book_number, book_amount FROM book_report WHERE r_month = (%s) AND r_year = (%s) ORDER BY book_id

@@ -1,0 +1,1 @@
+SELECT batch_date, batch_cost FROM batch JOIN publisher using(publisher_id) WHERE publisher_name = (%s)
