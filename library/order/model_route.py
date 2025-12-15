@@ -1,7 +1,6 @@
 from dataclasses import dataclass
-from database.select import select_dict, insert_many, insert, execute_sql
-from flask import session, current_app
-from cache.wrapper import fetch_from_cache
+from database.select import select_dict, insert_many, execute_sql
+from flask import session
 
 @dataclass
 class ResultInfo:
@@ -17,6 +16,7 @@ def model_route(provider, user_input: dict, sql_file: str):
         return ResultInfo(result=result, status=True, err_message=err_message)
     else:
         return ResultInfo(result=result, status=False, err_message="DATA NOT FOUND")
+
 
 def model_route_add(provider, user_input: dict, sql_file: str):
     _sql = provider.get(sql_file)
@@ -64,10 +64,47 @@ def check_basket(provider, sql_file: str):
     return False
 
 def model_route_delete(provider, user_input: dict):
+    """
+    Полное удаление комиссии:
+    1) commission_members
+    2) commission_schedule
+    """
     _sql_members = provider.get('delete_commission_members.sql')
     _sql_schedule = provider.get('delete_commission_schedule.sql')
+
     execute_sql(_sql_members, user_input)
     execute_sql(_sql_schedule, user_input)
+
+    return True
+
+def model_route_update(provider, user_input: dict):
+    """
+    Обновление комиссии:
+    1) удаляем старую
+    2) создаём новую
+    """
+
+    # 1. удалить старую комиссию
+    sql_members = provider.get('delete_commission_members.sql')
+    sql_schedule = provider.get('delete_commission_schedule.sql')
+
+    execute_sql(sql_members, user_input)
+    execute_sql(sql_schedule, user_input)
+
+    # 2. создать новую комиссию
+    sql_insert_schedule = provider.get('insert_commission_schedule.sql')
+    execute_sql(sql_insert_schedule, user_input)
+
+    # 3. добавить преподавателей
+    sql_insert_member = provider.get('insert_ol.sql')
+
+    for teacher_id in user_input['teachers']:
+        execute_sql(sql_insert_member, {
+            'o_id': user_input['project_id'],
+            'teacher_id': teacher_id
+        })
+
+    return True
 
 def load_basket_from_db(project_id):
     _sql = provider.get('load_commission.sql')

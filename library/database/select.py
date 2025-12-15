@@ -67,10 +67,10 @@ def insert(_sql: str, user_dict: dict):
     return last_inserted
 
 def execute_sql(_sql: str, user_dict: dict):
-    user_list = list(user_dict.values())
     with DBContextManager(current_app.config['db_config']) as cursor:
         if cursor is None:
             raise ValueError('Курсор не создан')
-        else:
-            cursor.execute(_sql, user_list)
+        cursor.execute(_sql, user_dict)
+        if cursor.rowcount == 0:
+            print("WARNING: SQL executed but no rows affected")
     return True

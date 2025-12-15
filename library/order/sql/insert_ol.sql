@@ -1,1 +1,2 @@
-INSERT INTO `commission_schedule`(cs_date, project_id) VALUES(%(defense_date)s, %(project_id)s)
+INSERT INTO commission_members (cs_id, teacher_id)
+VALUES (%(o_id)s, %(teacher_id)s);
