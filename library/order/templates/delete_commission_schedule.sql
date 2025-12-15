@@ -1,0 +1,1 @@
+DELETE FROM commission_schedule WHERE project_id = (%s);

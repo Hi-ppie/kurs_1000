@@ -2,13 +2,14 @@ from database.DBcm import DBContextManager
 from flask import current_app, session
 
 def select_list(_sql: str, user_list: list):
+    result = None
+    schema = []
     with DBContextManager(current_app.config['db_config']) as cursor:
         if cursor is None:
             raise ValueError('Курсор не создан')
         else:
             cursor.execute(_sql, user_list)
             result = cursor.fetchall()
-            schema = []
             for item in cursor.description:
                 schema.append(item[0])
     return result, schema
@@ -33,6 +34,7 @@ def stored_proc(proc_name: str, rep_date: list):
     return msg
 
 def insert_many(_sql1: str, _sql2: str):
+    last_inserted = None  # Инициализируем перед try
     try:
         with DBContextManager(current_app.config['db_config']) as cursor:
             if cursor is None:
@@ -55,12 +57,20 @@ def insert_many(_sql1: str, _sql2: str):
         return False
 
 def insert(_sql: str, user_dict: dict):
+    last_inserted = None  # Инициализируем перед try
     with DBContextManager(current_app.config['db_config']) as cursor:
         if cursor is None:
             raise ValueError('Курсор не создан')
         else:
             cursor.execute(_sql, user_dict)
-            if cursor.rowcount == 0:
-                raise ValueError('Insert не выполнен')
-            last_inserted = cursor.lastrowid
+            last_inserted = cursor.lastrowid  # Для DELETE = 0
     return last_inserted
+
+def execute_sql(_sql: str, user_dict: dict):
+    user_list = list(user_dict.values())
+    with DBContextManager(current_app.config['db_config']) as cursor:
+        if cursor is None:
+            raise ValueError('Курсор не создан')
+        else:
+            cursor.execute(_sql, user_list)
+    return True

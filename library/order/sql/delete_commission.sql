@@ -1,2 +1,0 @@
-DELETE FROM commission_members WHERE cs_id IN (SELECT cs_id FROM commission_schedule WHERE project_id = (%s));
-DELETE FROM commission_schedule WHERE project_id = (%s);

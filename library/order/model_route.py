@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from database.select import select_dict, insert_many,insert
+from database.select import select_dict, insert_many, insert, execute_sql
 from flask import session, current_app
 from cache.wrapper import fetch_from_cache
 
@@ -8,18 +8,6 @@ class ResultInfo:
     result: tuple
     status: bool
     err_message: str
-
-def model_route_client(provider, user_input: dict, sql_file: str,action:str):
-    err_message = ""
-    _sql = provider.get(sql_file)
-    if action == "insert":
-        result = insert(_sql, dict(user_input))
-    else:
-        result = select_dict(_sql, user_input)
-    if result:
-        return ResultInfo(result=result, status=True, err_message=err_message)
-    else:
-        return ResultInfo(result=result, status=False, err_message="DATA NOT FOUND")
 
 def model_route(provider, user_input: dict, sql_file: str):
     err_message = ""
@@ -32,8 +20,8 @@ def model_route(provider, user_input: dict, sql_file: str):
 
 def model_route_add(provider, user_input: dict, sql_file: str):
     _sql = provider.get(sql_file)
-    substr=False
-    if user_input['action'] == 'Удалить':
+    substr = False
+    if 'action' in user_input and user_input['action'] == 'Удалить':
         substr = True
     user_dict = {'teacher_id': user_input['teacher_id']}
     result = select_dict(_sql, user_dict)
@@ -76,8 +64,10 @@ def check_basket(provider, sql_file: str):
     return False
 
 def model_route_delete(provider, user_input: dict):
-    _sql = provider.get('delete_commission.sql')
-    select_dict(_sql, user_input)  # Используем select_dict для delete, так как оно execute без return
+    _sql_members = provider.get('delete_commission_members.sql')
+    _sql_schedule = provider.get('delete_commission_schedule.sql')
+    execute_sql(_sql_members, user_input)
+    execute_sql(_sql_schedule, user_input)
 
 def load_basket_from_db(project_id):
     _sql = provider.get('load_commission.sql')
