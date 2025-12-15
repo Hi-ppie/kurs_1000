@@ -77,39 +77,15 @@ def model_route_delete(provider, user_input: dict):
 
     return True
 
-def model_route_update(provider, user_input: dict):
-    """
-    Обновление комиссии:
-    1) удаляем старую
-    2) создаём новую
-    """
-
-    # 1. удалить старую комиссию
-    sql_members = provider.get('delete_commission_members.sql')
-    sql_schedule = provider.get('delete_commission_schedule.sql')
-
-    execute_sql(sql_members, user_input)
-    execute_sql(sql_schedule, user_input)
-
-    # 2. создать новую комиссию
-    sql_insert_schedule = provider.get('insert_commission_schedule.sql')
-    execute_sql(sql_insert_schedule, user_input)
-
-    # 3. добавить преподавателей
-    sql_insert_member = provider.get('insert_ol.sql')
-
-    for teacher_id in user_input['teachers']:
-        execute_sql(sql_insert_member, {
-            'o_id': user_input['project_id'],
-            'teacher_id': teacher_id
-        })
-
-    return True
-
-def load_basket_from_db(project_id):
+def load_basket_from_db(provider, project_id):
     _sql = provider.get('load_commission.sql')
     result = select_dict(_sql, {'project_id': project_id})
+
     session['basket'] = {}
     for res in result:
         id_str = str(res['teacher_id'])
-        session['basket'][id_str] = {'teacher_surname': res['surname'], 'teacher_account': res['account_num'], 'teacher_number': 1}
+        session['basket'][id_str] = {
+            'teacher_surname': res['surname'],
+            'teacher_account': res['account_num'],
+            'teacher_number': 1
+        }

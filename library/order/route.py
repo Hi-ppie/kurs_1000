@@ -59,7 +59,7 @@ def add_index():
         session['defense_date'] = user_input['defense_date']
         session['mode'] = 'edit' if user_input['action'] == 'Изменить' else 'create'
         if session['mode'] == 'edit':
-            load_basket_from_db(session['project_id'])
+            load_basket_from_db(provider, session['project_id'])
         return redirect(url_for('blueprint_order.order_index'))
     else:
         result_status = model_route_add(provider, user_input, 'book.sql')

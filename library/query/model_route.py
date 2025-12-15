@@ -12,7 +12,7 @@ def model_route(provider, user_input: dict, sql_file: str):
     err_message = ""
     _sql = provider.get(sql_file)
     print("sql=",_sql)
-    result = select_dict(_sql, user_input)
+    result = select_dict(_sql, user_input) or []
     print("result=", result)
     if result:
         return ResultInfo(result=result, status=True, err_message=err_message)

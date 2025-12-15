@@ -1,1 +1,1 @@
-SELECT project_id, topic, grade FROM project WHERE topic LIKE CONCAT('%%', (%s), '%%')
+SELECT project_id, topic, grade FROM project WHERE topic = %(topic)s
