@@ -6,9 +6,9 @@
 </head>
 <body>
 <center>
-    <h2>Клиент {{surname}} {{name}} не найден!</h2>
+    <h2>Студент с зачёткой {{record_book_num}} не найден!</h2>
     <br><br>
-    <p>Добавьте нового клиента</p>
+    <p>Добавьте нового студента</p>
     <form action="{{ url_for('blueprint_order.client_add') }}" method="POST">
         <input type="submit" name="action" value="Создать">
     </form>

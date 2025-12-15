@@ -6,11 +6,10 @@
 </head>
 <body>
 <center>
-    <h2>Идентификация пользователя</h2>
-    <p> Поиск пользователя по фамилии и имени </p>
+    <h2>Идентификация студента</h2>
+    <p> Поиск студента по номеру зачётной книжки </p>
         <form action="{{ url_for('blueprint_order.client') }}" method="post">
-        <input type="text" placeholder="Введите фамилию" name="surname" id="surname" >
-        <input type="text" placeholder="Введите имя" name="name" id="name" >
+        <input type="text" placeholder="Введите номер зачётки" name="record_book_num" id="record_book_num" >
         <br><br>
         <input type="submit" value="отправить">
         </form>

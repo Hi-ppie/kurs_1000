@@ -1,3 +1,2 @@
-SELECT book_id, book_name, book_author ,CONVERT(SUM(copies_number), UNSIGNED) as book_number FROM book LEFT JOIN copies using(book_id)
-WHERE book_id = (%s)
-Group BY book_id, book_name, book_author
+SELECT teacher_id, surname, account_num ,CONVERT(1, UNSIGNED) as teacher_number FROM teacher
+WHERE teacher_id = (%s)

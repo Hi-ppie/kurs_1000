@@ -1,1 +1,1 @@
-SELECT book_id,book_author,book_name FROM book WHERE book_genre = (%s)
+SELECT project_id, topic, grade FROM project WHERE defense_date = (%s)

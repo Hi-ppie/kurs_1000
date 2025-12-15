@@ -9,21 +9,22 @@
     <center>
         <div>
             <h2>
-                Результат поиска поставок по названию издательства: {{results[0]['publisher_name']}}
+                Результат поиска проектов по преподавателю: {{results[0]['surname']}}
             </h2>
 
 
             <p>Найдено позиций: {{ results|length }}</p>
             <table border="1">
                 <tr class=tab_title>
-                    <td>Дата поставки</td>
-                    <td>Стоимость поставки</td>
+                    <td>Код</td>
+                    <td>Тема</td>
+                    <td>Оценка</td>
                 </tr>
                 {% for result in results %}
                 <tr class=tab_title>
-                    <td>{{result['batch_date']}}</td>
-                    <td>{{result['batch_cost']}}</td>
-
+                    <td>{{result['project_id']}}</td>
+                    <td>{{result['topic']}}</td>
+                    <td>{{result['grade']}}</td>
                 </tr>
                 {% endfor %}
             </table>

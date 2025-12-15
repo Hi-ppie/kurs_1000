@@ -1,1 +1,1 @@
-SELECT batch_date, batch_cost FROM batch JOIN publisher using(publisher_id) WHERE publisher_name = (%s)
+SELECT project_id, topic, grade FROM project JOIN teacher USING(teacher_id) WHERE teacher.surname = (%s)

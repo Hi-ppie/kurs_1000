@@ -8,10 +8,10 @@
 <center>
     <h2>Ввод параметров поиска</h2>
     <p>
-        <h4>Поиск издательства по городу</h4>
+        <h4>Поиск проектов по студенту</h4>
         <form action="{{ url_for('blueprint_query.query_result', id=2) }}" method="post">
-        <label for="publisher_city">Название города</label>
-        <input type="text" placeholder="Введите название города" name="publisher_city" id="publisher_city" >
+        <label for="surname">Фамилия студента</label>
+        <input type="text" placeholder="Введите фамилию" name="surname" id="surname" >
         <br><br>
 
         <input type="submit" value="поиск">

@@ -1,1 +1,1 @@
-SELECT book_id,book_name,book_author, book_number, book_amount FROM book_report WHERE r_month = (%s) AND r_year = (%s) ORDER BY book_id
+SELECT project_id,project_topic,grade, student_surname, supervisor_surname FROM project_report WHERE r_month = (%s) AND r_year = (%s) ORDER BY project_id

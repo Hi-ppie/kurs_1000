@@ -1,1 +1,1 @@
-SELECT publisher_id,publisher_name,publisher_SurnameCP,publisher_phone,publisher_FoundationYear,publisher_ContractDate FROM publisher WHERE publisher_city = (%s)
+SELECT project_id, topic, grade FROM project JOIN student USING(student_id) WHERE student.surname = (%s)

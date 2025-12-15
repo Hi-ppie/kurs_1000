@@ -1,1 +1,1 @@
-INSERT INTO `order`(o_date, Cl_id) VALUES(CURDATE(), %(Cl_id)s)
+INSERT INTO `commission_schedule`(cs_date, project_id) VALUES(%(defense_date)s, %(project_id)s)

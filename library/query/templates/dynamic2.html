@@ -9,24 +9,22 @@
     <center>
         <div>
             <h2>
-                Результат поиска издательства по городу: {{results[0]['publisher_city']}}
+                Результат поиска проектов по студенту: {{results[0]['surname']}}
             </h2>
 
 
             <p>Найдено позиций: {{ results|length }}</p>
             <table border="1">
                 <tr class=tab_title>
-                    <td>Название</td>
-                    <td>Фамилия контактного лица</td>
-                    <td>Телефон</td>
-                    <td>Дата заключения контракта</td>
+                    <td>Код</td>
+                    <td>Тема</td>
+                    <td>Оценка</td>
                 </tr>
                 {% for result in results %}
                 <tr class=tab_title>
-                    <td>{{result['publisher_name']}}</td>
-                    <td>{{result['publisher_SurnameCP']}}</td>
-                    <td>{{result['publisher_phone']}}</td>
-                    <td>{{result['publisher_ContractDate']}}</td>
+                    <td>{{result['project_id']}}</td>
+                    <td>{{result['topic']}}</td>
+                    <td>{{result['grade']}}</td>
                 </tr>
                 {% endfor %}
             </table>

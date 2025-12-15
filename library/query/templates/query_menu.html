@@ -9,13 +9,15 @@
     <center>
 
             <h1>
-                Главное меню
+                Главное меню запросов
             </h1>
-            <a href="{{ url_for('blueprint_query.query_index', id=1) }}">Книга по жанру</a>
+            <a href="{{ url_for('blueprint_query.query_index', id=1) }}">Проекты по дате</a>
             <br><br>
-            <a href="{{ url_for('blueprint_query.query_index', id=2) }}">Издательство по городу</a>
+            <a href="{{ url_for('blueprint_query.query_index', id=2) }}">Проекты по студенту</a>
             <br><br>
-            <a href="{{ url_for('blueprint_query.query_index', id=3) }}">Поставки по издательству</a>
+            <a href="{{ url_for('blueprint_query.query_index', id=3) }}">Проекты по преподавателю</a>
+            <br><br>
+            <a href="{{ url_for('blueprint_query.query_index', id=4) }}">Проекты по теме</a>
             <br><br>
             <a href="{{ url_for('main_menu') }}">Назад в главное меню</a>
 

@@ -1,1 +1,1 @@
-INSERT INTO `order_list`(o_id, book_id) VALUES(%(o_id)s, %(book_id)s);
+INSERT INTO `commission_schedule`(cs_date, project_id) VALUES(%(defense_date)s, %(project_id)s)
